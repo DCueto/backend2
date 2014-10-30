@@ -20,7 +20,7 @@ def export_as_csv(modeladmin, request, queryset):
 
     replace_dc = {'\n': '* ', '\r': '', ';': ',', '\"': '|', '\'': '|', 'True': 'Si', 'False': 'No'}
     opts = modeladmin.model._meta
-    response = HttpResponse(mimetype='text/csv; charset=utf-8')
+    response = HttpResponse(content_type='text/csv; charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename=%s.csv' % unicode(opts).replace('.', '_')
     w = csv.writer(response, delimiter=';')
     # import pdb; pdb.set_trace()

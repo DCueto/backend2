@@ -11,7 +11,7 @@ class EnlaceAdmin(admin.ModelAdmin):
 	search_fields = ("categoria__titulo", "usuario__email")
 	list_editable = ("enlace", "categoria")
 	list_display_links = ("titulo","es_popular")
-	#actions = [export_as_csv]
+	actions = [export_as_csv]
 
 	def imagen_voto(self, obj):
 		url = obj.mis_votos_en_imagen_rosada()
