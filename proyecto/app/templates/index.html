@@ -15,9 +15,9 @@
 <body>
 	<!-- comentario de lo que sea -->
 	<header>
-		<figure id="logo">
+		<a href="{% url "home" %}"><figure id="logo">
 			<img src="logo.png" />
-		</figure>
+		</figure></a>
 		<h1 id="titulo_header">Puls3: Comunidad de gente cool, atractiva y millonaria</h1>
 		<figure id="avatar">
 			<img src="avatar.jpg" />
@@ -30,7 +30,7 @@
 			{% for cat in categorias %}
 			    <li><a href="{% url "categoria" cat.pk %}">{{cat}}</a></li>
 			{% endfor %}
-			<li id="publicar_nav"><a href="{# url "add" #}">Publicar</a></li>
+			<li id="publicar_nav"><a href="{% url "add" %}">Publicar</a></li>
 		</ul>
 	</nav>
 	<aside id="bienvenida">

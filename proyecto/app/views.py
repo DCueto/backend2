@@ -8,12 +8,13 @@ from models import *
 from django.shortcuts import get_object_or_404
 from forms import *
 from django.template.context import RequestContext
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 def home(request):
 	categorias = Categoria.objects.all()
-	enlaces = Enlace.objects.all()
+	enlaces = Enlace.objects.order_by("-votos").all()
 	template = "index.html"
 
 	return render_to_response(template, locals())
@@ -33,25 +34,30 @@ def minus(request, id_enlace):
 	enlace.votos = enlace.votos - 1
 	enlace.save()
 	return HttpResponseRedirect("/")
+@login_required
 
 def plus(request, id_enlace):
 	enlace = Enlace.objects.get(pk=id_enlace)
 	enlace.votos = enlace.votos + 1
 	enlace.save()
 	return HttpResponseRedirect("/")
+@login_required
 
 def add(request):
 	categorias = Categoria.objects.all()
 	if request.method == "POST":
 		form = EnlaceForm(request.POST)
 		if form.is_valid():
-			form.save()
+			enlace = form.save(commit = False)
+			enlace.usuario = request.user
+			enlace.save()
 			return HttpResponseRedirect("/")
 	else:
 		form = EnlaceForm()
 
 	template = "form.html"
 	return render_to_response(template, context_instance = RequestContext(request,locals()))
+@login_required
 
 def hora_actual(request):
 
