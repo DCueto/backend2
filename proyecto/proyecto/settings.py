@@ -82,3 +82,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Context Processors
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'app.context_processors.ejemplo',
+    # 'app.context_processors.ejemplo'
+
+
+    )
+
+
+
+
+
+

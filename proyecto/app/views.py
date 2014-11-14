@@ -1,11 +1,9 @@
-from django.shortcuts import render
-from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404, render_to_response, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.template import Context
 from datetime import datetime
 from models import *
-from django.shortcuts import get_object_or_404
 from forms import *
 from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
@@ -17,7 +15,7 @@ def home(request):
 	enlaces = Enlace.objects.order_by("-votos").all()
 	template = "index.html"
 
-	return render_to_response(template, locals())
+	return render(request, template, locals())
 
 def categoria(request, id_categoria):
 	categorias = Categoria.objects.all()
@@ -26,7 +24,7 @@ def categoria(request, id_categoria):
 	enlaces = Enlace.objects.filter(categoria = cat)
 	template = "index.html"
 
-	return render_to_response(template, locals())
+	return render(request, template, locals())
 
 
 def minus(request, id_enlace):
