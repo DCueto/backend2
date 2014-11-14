@@ -26,3 +26,10 @@ class Enlace(models.Model):
 		return self.votos > 10
 
 	es_popular.boolean = True
+
+class Agregador(models.Model):
+	titulo = models.CharField(max_length=140)
+	enlaces = models.ManyToManyField(Enlace)
+
+
+
