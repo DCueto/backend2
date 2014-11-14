@@ -29,7 +29,12 @@ class EnlaceInline(admin.StackedInline):
 
 class CategoriaAdmin(admin.ModelAdmin):
 	inlines = [EnlaceInline]
+	actions = [export_as_csv]
 
-admin.site.register(Agregador)
+class AgregadorAdmin(admin.ModelAdmin):
+	filter_horizontal = ("enlaces",)
+	#filter_vertical = ("enlaces",)
+
+admin.site.register(Agregador, AgregadorAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Enlace, EnlaceAdmin)
