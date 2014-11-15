@@ -7,7 +7,7 @@ from models import *
 from forms import *
 from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 
@@ -27,21 +27,21 @@ def categoria(request, id_categoria):
 
 	return render(request, template, locals())
 
-
+@login_required
 def minus(request, id_enlace):
 	enlace = Enlace.objects.get(pk=id_enlace)
 	enlace.votos = enlace.votos - 1
 	enlace.save()
 	return HttpResponseRedirect("/")
-@login_required
 
+@login_required
 def plus(request, id_enlace):
 	enlace = Enlace.objects.get(pk=id_enlace)
 	enlace.votos = enlace.votos + 1
 	enlace.save()
 	return HttpResponseRedirect("/")
-@login_required
 
+@login_required
 def add(request):
 	categorias = Categoria.objects.all()
 	if request.method == "POST":
@@ -56,7 +56,6 @@ def add(request):
 
 	template = "form.html"
 	return render_to_response(template, context_instance = RequestContext(request,locals()))
-@login_required
 
 def hora_actual(request):
 
@@ -77,4 +76,8 @@ class EnlaceListView(ListView):
 	def get_template_names(self):
 		return "index.html"
 
+class EnlaceDetailView(DetailView):
+	model = Enlace
+	def get_template_names(self):
+		return "index.html"
 
