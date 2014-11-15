@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
+from app.views import EnlaceListView
 
 urlpatterns = patterns('',
     # Examples:
@@ -10,6 +12,8 @@ urlpatterns = patterns('',
     url(r'^minus/(\d+)$', 'app.views.minus', name='minus'),
     url(r'^categoria/(\d+)$', 'app.views.categoria', name='categoria'),
     url(r'^add/$', 'app.views.add', name='add'),
+    url(r'^about/$', TemplateView.as_view(template_name='index.html'), name='about'),
+    url(r'^enlaces/$', EnlaceListView.as_view(), name='enlaces'),
 
 
 

@@ -7,6 +7,7 @@ from models import *
 from forms import *
 from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 
 # Create your views here.
 
@@ -68,3 +69,12 @@ def hora_actual(request):
 
 	now = datetime.now()
 	return render_to_response("hora.html",{"hora" : now, "usuario" : "Dani"})
+
+
+class EnlaceListView(ListView):
+	model = Enlace
+	context_object_name = "enlaces"
+	def get_template_names(self):
+		return "index.html"
+
+
