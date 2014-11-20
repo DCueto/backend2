@@ -6,8 +6,18 @@ admin.autodiscover()
 from django.views.generic import TemplateView
 from app.views import EnlaceListView
 
+from rest_framework import routers
+
+from app.views import EnlaceViewSet, UserViewSet
+
+router = routers.DefaultRouter()
+router.register(r'links', EnlaceViewSet)
+router.register(r'user', UserViewSet)
+
 urlpatterns = patterns('',
     # Examples:
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^$', 'app.views.home', name='home'),
     url(r'^categoria/(\d+)$', 'app.views.categoria', name='categoria'),
     url(r'^plus/(\d+)$', 'app.views.plus', name='plus'),
